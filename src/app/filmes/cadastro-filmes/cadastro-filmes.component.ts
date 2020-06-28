@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'dio-cadastro-filmes',
@@ -12,14 +12,16 @@ export class CadastroFilmesComponent implements OnInit {
 
   constructor(private fb: FormBuilder) { }
 
-  get f() {
+  get f() { 
     return this.cadastro.controls;
   }
 
   ngOnInit(): void {
 
     this.cadastro = this.fb.group({
-      titulo: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(256)]],
+      titulo: ['', // Initial information
+        [Validators.required, Validators.minLength(2), Validators.maxLength(256)] // Properties
+      ],
       urlFoto: ['', [Validators.minLength(10)]],
       dtLancamento: ['', [Validators.required]],
       descricao: [''],
@@ -31,7 +33,7 @@ export class CadastroFilmesComponent implements OnInit {
   }
 
   salvar(): void {
-    this.cadastro.markAllAsTouched();
+    this.cadastro.markAllAsTouched(); // Every time a cadastro is called, it will be set as clicked once
     if (this.cadastro.invalid) {
       return;
     }
