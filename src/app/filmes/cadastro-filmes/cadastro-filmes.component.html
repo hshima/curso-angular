@@ -12,10 +12,14 @@
                 f.titulo // calls the f() from the ts component
                 .errors // property
                 ? // If errors exists, verify from this point on - Elvis operator
-            -->
+            
             <mat-error *ngIf="(cadastro.touched || cadastro.dirty) && f.titulo.errors?.required">Campo obrigatório</mat-error>
             <mat-error *ngIf="(cadastro.touched || cadastro.dirty) && f.titulo.errors?.minlength">Campo precisa ter no mínimo 2 caracteres</mat-error>
             <mat-error *ngIf="(cadastro.touched || cadastro.dirty) && f.titulo.errors?.maxlength">Campo pode ter no máximo 256 caracteres</mat-error>
+            -->
+            <mat-error *ngIf="validacao.hasErrorValidate(f.titulo, 'required')">Campo obrigatório</mat-error>
+            <mat-error *ngIf="validacao.hasErrorValidate(f.titulo, 'minlength')">Campo precisa ter no mínimo 2 caracteres</mat-error>
+            <mat-error *ngIf="validacao.hasErrorValidate(f.titulo, 'maxlength')">Campo pode ter no máximo 256</mat-error>
           </mat-form-field>
           <mat-form-field class="full-width">
             <input matInput placeholder="Link Foto" name="urlFoto" formControlName="urlFoto">
