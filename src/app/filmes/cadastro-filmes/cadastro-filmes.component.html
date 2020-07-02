@@ -16,7 +16,7 @@
           <dio-input-textarea titulo="Descricao" controlName="descricao" [formGroup]="cadastro"></dio-input-textarea>
           <dio-input-number titulo="nota IMDb *" controlName="nota" step="0.1" [formGroup]="cadastro"></dio-input-number>
           <dio-input-text titulo="Link IMDb" controlName="urlIMDb" [formGroup]="cadastro"></dio-input-text>
-          <dio-input-selectarea titulo="Gênero *" controlName="genero" [formGroup]="cadastro"></dio-input-selectarea>
+          <dio-input-selectarea titulo="Gênero *" ´[opcoes]="generos" controlName="genero" [formGroup]="cadastro"></dio-input-selectarea>
         </mat-card-content>
         <mat-card-actions>
           <button type="submit" color="accent" mat-raised-button>Salvar</button>
