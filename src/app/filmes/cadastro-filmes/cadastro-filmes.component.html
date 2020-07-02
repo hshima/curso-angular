@@ -1,8 +1,11 @@
 <mat-toolbar class="app-title">Cadastrar Filme</mat-toolbar>
 <div class="main-div">
   <mat-card class="center width50" >
-    <!-- Form receives the value from the variable cadastro -->
-    <form [formGroup]="cadastro" (ngSubmit)="salvar()" (ngReset)="reiniciarForm()">
+    <!-- Form receives the value from the variable cadastro 
+      autocomple="off" // auto complete will be turned off
+      novalidate // hmtl5 won't validade this form
+    -->
+    <form autocomple="off" novalidate [formGroup]="cadastro" (ngSubmit)="salvar()" (ngReset)="reiniciarForm()">
       <mat-card-content>
         <!--
           controlName="titulo" doesn't need databind ([]), because there's no titulo variable in the html. As 
