@@ -5,7 +5,7 @@
       autocomple="off" // auto complete will be turned off
       novalidate // hmtl5 won't validade this form
     -->
-    <form autocomple="off" novalidate [formGroup]="cadastro" (ngSubmit)="salvar()" (ngReset)="reiniciarForm()">
+    <form autocomple="off" novalidate [formGroup]="cadastro" (ngSubmit)="submit()" (ngReset)="reiniciarForm()">
       <mat-card-content>
         <!--
           controlName="titulo" doesn't need databind ([]), because there's no titulo variable in the html. As 
@@ -16,7 +16,7 @@
           <dio-input-textarea titulo="Descricao" controlName="descricao" [formGroup]="cadastro"></dio-input-textarea>
           <dio-input-number titulo="nota IMDb *" controlName="nota" step="0.1" [formGroup]="cadastro"></dio-input-number>
           <dio-input-text titulo="Link IMDb" controlName="urlIMDb" [formGroup]="cadastro"></dio-input-text>
-          <dio-input-selectarea titulo="Gênero *" ´[opcoes]="generos" controlName="genero" [formGroup]="cadastro"></dio-input-selectarea>
+          <dio-input-selectarea titulo="Gênero *" [opcoes]="generos" controlName="genero" [formGroup]="cadastro"></dio-input-selectarea>
         </mat-card-content>
         <mat-card-actions>
           <button type="submit" color="accent" mat-raised-button>Salvar</button>
