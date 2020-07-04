@@ -11,6 +11,7 @@ import { AppRoutingModule } from './app.routing.module';
 import { MaterialModule } from './shared/material/material.module';
 import { TopoComponent } from './shared/components/topo/topo.component';
 import { RodapeComponent } from './shared/components/rodape/rodape.component';
+import { AlertaComponent } from './shared/components/alerta/alerta.component';
 
 
 
@@ -19,6 +20,7 @@ import { RodapeComponent } from './shared/components/rodape/rodape.component';
     AppComponent,
     TopoComponent,
     RodapeComponent,
+    AlertaComponent,
   ],
   imports: [
     BrowserModule,
@@ -27,6 +29,9 @@ import { RodapeComponent } from './shared/components/rodape/rodape.component';
     LayoutModule,
     MaterialModule,
     AppRoutingModule
+  ],
+  entryComponents: [
+    AlertaComponent
   ],
   providers: [{ provide: MAT_DATE_LOCALE, useValue: 'pt' }],
   bootstrap: [AppComponent]
