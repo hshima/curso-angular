@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { ValidarCamposService } from 'src/app/shared/components/campos/validar-campos.service';
 import { FilmesService } from 'src/app/core/filmes.service';
 import { Filme } from 'src/app/shared/models/filme';
 import { MatDialog } from '@angular/material/dialog';
 import { AlertaComponent } from 'src/app/shared/components/alerta/alerta.component';
+import { Alerta } from 'src/app/shared/models/alerta';
+
 
 @Component({
   selector: 'dio-cadastro-filmes',
@@ -20,7 +23,8 @@ export class CadastroFilmesComponent implements OnInit {
     public validacao: ValidarCamposService,
     public dialog: MatDialog,
     private fb: FormBuilder,
-    private filmeService: FilmesService
+    private filmeService: FilmesService,
+    private router: Router
   ) { }
 
   get f() {
@@ -40,7 +44,7 @@ export class CadastroFilmesComponent implements OnInit {
       urlIMDb: ['', [Validators.minLength(10)]],
       genero: ['', [Validators.required]]
     });
-    
+
     this.generos = ['Ação', 'Aventura', 'Ficção Científica', 'Romance', 'Terror', 'comedia', 'drama']
   }
 
@@ -62,10 +66,33 @@ export class CadastroFilmesComponent implements OnInit {
   private salvar(filme: Filme): void {
     this.filmeService.salvar(filme)
       .subscribe(() => {//due to lazy behaviour, it's mandatory to have the 
-      const dialogRef = this.dialog.open(AlertaComponent);
+        const config = { //Stablishes an object
+          data: { // with properties to be overriden
+            btnSucesso: 'Ir para a listagem',
+            btnCancelar: 'Cadastrar novo filme',
+            corBtnCancelar: 'primary',
+            possuiBtnFechar: true
+          } as Alerta
+        }
+        const dialogRef = this.dialog.open(AlertaComponent, config);
+        dialogRef.afterClosed().subscribe((opcao: boolean) => {
+          if (opcao) {
+            this.router.navigateByUrl('filmes');
+          } else {
+            this.reiniciarForm();
+          }
+        })
       },
-      () => {
-        'Erro ao Salvar'
-      }); 
+        () => {
+          const config = {
+            data: { // with properties to be overriden
+              btnSucesso: 'Fechar',
+              descricao: 'Erro',
+              corBtnSucesso: 'warn',
+              titulo: 'Erro ao salvar o registro'
+            } as Alerta
+          };
+          this.dialog.open(AlertaComponent, config);
+        });
   }
 }
