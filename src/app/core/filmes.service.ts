@@ -19,11 +19,13 @@ export class FilmesService {
     var httpParams = new HttpParams();
     httpParams = httpParams.set('_page', pagina.toString()); // Sets which page shall be searched
     httpParams = httpParams.set('_limit', qtdPagina.toString()); // Sets which page shall be searched
+    httpParams = httpParams.set('_sort', 'id');
+    httpParams = httpParams.set('_order', 'desc');
     if (texto) {
-      httpParams = httpParams.set('q', texto.toString()); // Sets which page shall be searched
+      httpParams = httpParams.set('q', texto.toString()); 
     }
     if (genero) {
-      httpParams = httpParams.set('genero', genero.toString()); // Sets which page shall be searched
+      httpParams = httpParams.set('genero', genero.toString());
     }
     return this.http.get<Filme[]>(url, { params: httpParams });
 
