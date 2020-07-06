@@ -16,6 +16,8 @@ export class ListagemFilmesComponent implements OnInit {
 
   readonly qtdPagina = 4;
   filmes: Filme[] = []; // Starts the variable a empty array, not a null (undefined) array
+  texto: string = '';
+  genero: string = '';
   pagina = 0;
   filtrosListagem: FormGroup;
   generos: Array<string>;
@@ -35,6 +37,19 @@ export class ListagemFilmesComponent implements OnInit {
 
     this.listarFilmes();
     this.onScroll();
+    this.filtrosListagem.get('texto') // From the texto variable,
+    .valueChanges // get a valueChanges(): Observable
+    .subscribe((val: string) => {// And Subscribe for alterations
+      this.texto = val;
+      this.resertarConsulta();
+    }); 
+
+    this.filtrosListagem.get('genero') // From the texto variable,
+    .valueChanges // get a valueChanges(): Observable
+    .subscribe((val: string) => { // And Subscribe for alterations
+      this.genero = val;
+      this.resertarConsulta();
+    });
   }
 
   onScroll(): void {
@@ -43,11 +58,16 @@ export class ListagemFilmesComponent implements OnInit {
 
   private listarFilmes(): void {
     this.pagina++;
-    this.filmesService.listar(this.pagina, this.qtdPagina)
+    this.filmesService.listar(this.pagina, this.qtdPagina, this.texto, this.genero)
       .subscribe((filmes: Filme[]) => {
         this.filmes.push( // makes a push to the existing result, instead of overwritting the actual content
           ...filmes) // Adding tha spread operator allows the array to be appended
         });
   }
 
+  private resertarConsulta(): void {
+    this.pagina = 0;
+    this.filmes = [];
+    this.listarFilmes();
+  }
 }

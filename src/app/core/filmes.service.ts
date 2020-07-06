@@ -11,15 +11,21 @@ export class FilmesService {
 
   constructor(private http: HttpClient) { }
 
-  salvar(filme: Filme): Observable<Filme> { 
+  salvar(filme: Filme): Observable<Filme> {
     return this.http.post<Filme>(url, filme);
   }
 
-  listar(pagina: number, qtdPagina: number): Observable<Filme[]>{
+  listar(pagina: number, qtdPagina: number, texto: string, genero: string): Observable<Filme[]> {
     var httpParams = new HttpParams();
     httpParams = httpParams.set('_page', pagina.toString()); // Sets which page shall be searched
     httpParams = httpParams.set('_limit', qtdPagina.toString()); // Sets which page shall be searched
-    return this.http.get<Filme[]>(url, {params: httpParams});
+    if (texto) {
+      httpParams = httpParams.set('q', texto.toString()); // Sets which page shall be searched
+    }
+    if (genero) {
+      httpParams = httpParams.set('genero', genero.toString()); // Sets which page shall be searched
+    }
+    return this.http.get<Filme[]>(url, { params: httpParams });
 
   }
 
