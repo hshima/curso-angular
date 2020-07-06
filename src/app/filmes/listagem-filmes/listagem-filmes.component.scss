@@ -9,6 +9,11 @@
 
   }
 }
+
+.filtro-listagem {
+  width: calc(100% - 50px); // Shows 100% of the page, and removes 50 px of borders imported from src/assets/styles/scss.margin10
+}
+
 /* Adjusts image size and centralization */
 .mat-card-image {
   width: auto;
