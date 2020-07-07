@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
-
+import { debounceTime } from 'rxjs/operators';
 
 import { FilmesService } from 'src/app/core/filmes.service';
 import { Filme } from 'src/app/shared/models/filme';
@@ -14,7 +14,8 @@ import { ConfigParams } from 'src/app/shared/models/config-params';
   styleUrls: ['./listagem-filmes.component.scss']
 })
 export class ListagemFilmesComponent implements OnInit {
-
+  readonly semFoto = 'https://www.termoparts.com.br/wp-content/uploads/2017/10/no-image.jpg';
+  
   config: ConfigParams = {
     pagina: 0,
     limite: 4
@@ -40,6 +41,7 @@ export class ListagemFilmesComponent implements OnInit {
     // this.onScroll();
     this.filtrosListagem.get('texto') // From the texto variable,
       .valueChanges // get a valueChanges(): Observable
+      .pipe(debounceTime(400)) //every 400 miliseconds after stop writing, angular will request in the server
       .subscribe((val: string) => {// And Subscribe for alterations
         this.config.pesquisa = val;
         this.resertarConsulta();
@@ -47,6 +49,7 @@ export class ListagemFilmesComponent implements OnInit {
 
     this.filtrosListagem.get('genero') // From the texto variable,
       .valueChanges // get a valueChanges(): Observable
+      .pipe(debounceTime(400)) //every 400 miliseconds after stop writing, angular will request in the server
       .subscribe((val: string) => { // And Subscribe for alterations
         if(val==null) {val = '';}
         console.log(val);

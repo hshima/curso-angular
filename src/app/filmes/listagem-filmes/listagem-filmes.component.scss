@@ -16,7 +16,9 @@
 
 /* Adjusts image size and centralization */
 .mat-card-image {
-  width: auto;
+  //stablishes a standard size for pictures
+  width: 182px;
+  height: 168px;
   margin: auto;
   display: block;
 }
