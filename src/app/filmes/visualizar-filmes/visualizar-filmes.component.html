@@ -1,7 +1,7 @@
 <mat-list *ngIf="filme, else semRegistro">
   <mat-list-item>Titulo: {{filme.titulo}}</mat-list-item>
   <mat-list-item>Data de lançamento: {{filme.dtLancamento | date: 'dd/MM/yyyy'}}</mat-list-item>
-  <mat-list-item>Descrição: {{filme.descricao}}</mat-list-item>
+  <mat-list-item class="quebrar-linha">Descrição: {{filme.descricao}}</mat-list-item>
   <!--
     target="_blank" opens in a new page
   -->
