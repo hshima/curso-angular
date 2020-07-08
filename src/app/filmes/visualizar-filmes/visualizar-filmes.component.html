@@ -10,7 +10,7 @@
   <img mat-card-image [src]="filme.urlFoto || semFoto" >
 </mat-list>
 <mat-card-actions>
-  <button color="accent" mat-raised-button>Editar</button>
+  <button color="accent" mat-raised-button (click)="editar()">Editar</button>
   <button color="warn" mat-raised-button (click)="excluir()">Excluir</button>
 </mat-card-actions>
 <ng-template #semRegistro>
