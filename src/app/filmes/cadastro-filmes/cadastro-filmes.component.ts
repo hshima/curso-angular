@@ -52,7 +52,12 @@ export class CadastroFilmesComponent implements OnInit {
 
     const filme = this.cadastro
       .getRawValue() as Filme;// Returns all fields that are presentin the cadatro's formGroup and Casts rawValue as Filme
-    this.salvar(filme);
+    if (this.id) {
+      filme.id = this.id;
+      this.editar(filme);
+    } else {
+      this.salvar(filme);
+    }
   }
 
   reiniciarForm(): void {
@@ -113,6 +118,33 @@ export class CadastroFilmesComponent implements OnInit {
               descricao: 'Erro',
               corBtnSucesso: 'warn',
               titulo: 'Erro ao salvar o registro'
+            } as Alerta
+          };
+          this.dialog.open(AlertaComponent, config);
+        });
+  }
+
+  private editar(filme: Filme): void {
+    this.filmeService.editar(filme)
+      .subscribe(() => {
+        const config = {
+          data: {
+            titulo: 'registro atualizado com sucesso!',
+            descricao: 'Seu registro foi atualizado com sucesso',
+            } as Alerta
+        }
+        const dialogRef = this.dialog.open(AlertaComponent, config);
+        dialogRef.afterClosed().subscribe(() => 
+          this.router.navigateByUrl('filmes')
+        );
+      },
+        () => {
+          const config = {
+            data: {
+              titulo: 'Erro ao editar o registro',
+              descricao: 'A edição não teve sucesso, tente novamente mais tarde',
+              corBtnSucesso: 'warn',
+              btnSucesso: 'Fechar'
             } as Alerta
           };
           this.dialog.open(AlertaComponent, config);
