@@ -159,36 +159,6 @@
       "urlIMDb": "",
       "genero": "Ficção Científica",
       "id": 16
-    },
-    {
-      "titulo": "novo filme",
-      "urlFoto": "",
-      "dtLancamento": "2020-07-01T03:00:00.000Z",
-      "descricao": "",
-      "nota": 0,
-      "urlIMDb": "",
-      "genero": "Romance",
-      "id": 17
-    },
-    {
-      "titulo": "teste",
-      "urlFoto": "",
-      "dtLancamento": "2020-07-21T03:00:00.000Z",
-      "descricao": "filme",
-      "nota": 0,
-      "urlIMDb": "",
-      "genero": "comedia",
-      "id": 18
-    },
-    {
-      "titulo": "filme",
-      "urlFoto": null,
-      "dtLancamento": "2020-07-14T03:00:00.000Z",
-      "descricao": null,
-      "nota": 0.1,
-      "urlIMDb": null,
-      "genero": "Ação",
-      "id": 19
     }
   ]
 }

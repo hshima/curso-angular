@@ -1,7 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
+
+
+
 import { FilmesService } from 'src/app/core/filmes.service';
 import { Filme } from 'src/app/shared/models/filme';
+import { Alerta } from 'src/app/shared/models/alerta';
+import { AlertaComponent } from 'src/app/shared/components/alerta/alerta.component';
 
 @Component({
   selector: 'dio-visualizar-filmes',
@@ -9,23 +15,44 @@ import { Filme } from 'src/app/shared/models/filme';
   styleUrls: ['./visualizar-filmes.component.scss']
 })
 export class VisualizarFilmesComponent implements OnInit {
-  
-  readonly semFoto = 'https://www.termoparts.com.br/wp-content/uploads/2017/10/no-image.jpg';
 
-filme: Filme;
+  readonly semFoto = 'https://www.termoparts.com.br/wp-content/uploads/2017/10/no-image.jpg';
+  filme: Filme;
+  id: number;
 
   constructor(
+    public dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
+    private router: Router,
     private filmesService: FilmesService
   ) { }
 
   ngOnInit() {
-    this.visualizar(this.activatedRoute.snapshot.params['id']);
+    this.id = this.activatedRoute.snapshot.params['id'];
+    this.visualizar();
   }
 
+  excluir(): void {
+    const config = { //Stablishes an object
+      data: { // with properties to be overriden
+        titulo: 'Tem certeza que deseja excluir?',
+        descricao: 'Caso tenha certeza, clique em OK',
+        corBtnCancelar: 'primary',
+        corBtnSucesso: 'warn',
+        possuiBtnFechar: true
+      } as Alerta
+    }
+    const dialogRef = this.dialog.open(AlertaComponent, config);
+    dialogRef.afterClosed().subscribe((opcao: boolean) => {
+      if (opcao) {
+        this.filmesService.excluir(this.id).subscribe(() =>
+         this.router.navigateByUrl('/filmes'));
+      } 
+    });
+  }
 
-  private visualizar(id:number): void{
-    this.filmesService.visualizar(id).subscribe((filme: Filme)=>{
+  private visualizar(): void {
+    this.filmesService.visualizar(this.id).subscribe((filme: Filme) => {
       this.filme = filme;
     })
   }

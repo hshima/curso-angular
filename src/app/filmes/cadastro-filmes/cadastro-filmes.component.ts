@@ -81,7 +81,7 @@ export class CadastroFilmesComponent implements OnInit {
           } else {
             this.reiniciarForm();
           }
-        })
+        });
       },
         () => {
           const config = {
